@@ -21,36 +21,38 @@ class App extends Component {
         })
     };
 
-    addValues = (e) => {
-        e.preventDefault();
-        const {firstValue, secondValue} = this.state;
-        const value = Number(firstValue) + Number(secondValue);
-        console.log(`The result is: ${value}`);
+    updateValues = (e) => {
+        console.log('event:', e.target.value);
         this.setState({
-            firstValue: '',
-            secondValue: ''
+            [e.target.id]: e.target.value
         })
-    };
+    }
 
-    subtractValues = (e) => {
+    calculate = (e) => {
         e.preventDefault();
+        let value = null;
         const {firstValue, secondValue} = this.state;
-        const value = Number(firstValue) - Number(secondValue);
+        if (e.target.value === 'Add') {
+            value = Number(firstValue) + Number(secondValue);
+        } else {
+            value = Number(firstValue) - Number(secondValue);
+        }
         console.log(`The result is: ${value}`);
         this.setState({
             firstValue: '',
             secondValue: ''
         })
-    };
+
+    }
 
     render() {
         return (
             <form>
 
-                <input type='text' value={this.state.firstValue} onChange={this.changeFirstValue}/>
-                <input type='text' value={this.state.secondValue} onChange={this.changeSecondValue}/>
-                <input type='submit' value='Add' onClick={this.addValues}/>
-                <input type='submit' value='Subtract' onClick={this.subtractValues}/>
+                <input type='text' value={this.state.firstValue} onChange={this.updateValues} id='firstValue'/>
+                <input type='text' value={this.state.secondValue} onChange={this.updateValues} id='secondValue'/>
+                <input type='submit' value='Add' onClick={this.calculate}/>
+                <input type='submit' value='Subtract' onClick={this.calculate}/>
 
             </form>
         );
